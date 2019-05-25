@@ -73,6 +73,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'taxi.wsgi.application'
+
+# setting up asynchronous routing
 ASGI_APPLICATION = 'taxi.routing.application'
 
 
@@ -123,6 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# adding path and configuration for redis
 STATIC_URL = '/static/'
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
@@ -134,4 +137,11 @@ CHANNEL_LAYERS = {
             'hosts': [REDIS_URL],
         },
     },
+}
+
+# setting up session authorization for REST framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
